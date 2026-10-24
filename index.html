@@ -2,11 +2,12 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>קמים מהספה | תומר פרזן - כושר קרבי</title>
 <meta property="og:title" content="קמים מהספה - כושר קרבי עם תומר פרזן">
 <meta property="og:description" content="תוכנית כושר קרבי לחברים במושב. 500 ₪ לחודש. נרשמים עכשיו!">
-<meta property="og:image" content="assets/poster.jpg">
+<meta property="og:image" content="assets/poster.jpg?v=3">
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{--acc:#ff5a1f;--acc2:#ffd60a;--bg:#0b0d0c;--card:#16191a}
@@ -46,18 +47,29 @@ legend{font-weight:900;font-size:1.3rem;padding:0 8px}
 .yn input,.chk input{width:20px;height:20px;accent-color:var(--acc);margin:0}
 .chk{display:flex;gap:10px;align-items:flex-start;font-weight:700}.chk input{flex:none;margin-top:3px}
 .warn{display:none;background:#3a2a00;border:1px solid var(--acc2);color:var(--acc2);padding:12px;border-radius:6px;font-weight:700}
+.cd{display:flex;gap:8px;justify-content:center;margin:18px 0 8px;direction:rtl}
+.cd div{background:rgba(0,0,0,.55);border:2px solid var(--acc);border-radius:8px;min-width:68px;padding:8px 4px}
+.cd b{display:block;font-size:2rem;font-weight:900;line-height:1;color:var(--acc2);font-variant-numeric:tabular-nums}
+.cd small{font-size:.8rem;font-weight:700}
+.cdt{font-weight:700;margin-top:6px;opacity:.9}
+.started{font-size:1.8rem;font-weight:900;color:var(--acc2);margin:18px 0}
+.cnt{display:none;font-weight:900;font-size:1.2rem;margin:14px 0 0;background:rgba(0,0,0,.55);padding:8px 16px;border-radius:30px;display:none}
 </style>
 </head>
 <body>
 <header class="hero">
-  <video autoplay muted loop playsinline preload="auto" poster="assets/poster.jpg">
-    <source src="assets/bg.mp4" type="video/mp4">
+  <video autoplay muted loop playsinline preload="auto" poster="assets/poster.jpg?v=3">
+    <source src="assets/bg.mp4?v=3" type="video/mp4">
   </video>
   <div class="hc">
     <div class="tag">כושר קרבי · במושב</div>
     <h1>קמים<br><span>מהספה</span></h1>
     <p class="sub">תוכנית כושר קרבי עם <b>תומר פרזן</b> - מאמן כושר קרבי.<br>אימונים קבוצתיים קשוחים, כיפיים ומותאמים לכל רמה. בלי תירוצים, ביחד עם החבר'ה מהמושב.</p>
+    <div class="cdt">⏱️ התוכנית מתחילה בעוד:</div>
+    <!-- START_DATE הוא תאריך זמני (placeholder) עד שייקבע מועד הפתיחה. לשינוי: ערכו את START_DATE בראש הסקריפט -->
+    <div class="cd" id="cd"><div><b id="cd-d">--</b><small>ימים</small></div><div><b id="cd-h">--</b><small>שעות</small></div><div><b id="cd-m">--</b><small>דקות</small></div><div><b id="cd-s">--</b><small>שניות</small></div></div>
     <a class="btn" href="#signup">אני בפנים! 💪</a>
+    <div><span class="cnt" id="cnt"></span></div>
   </div>
 </header>
 
@@ -118,6 +130,9 @@ legend{font-weight:900;font-size:1.3rem;padding:0 8px}
 <footer>קמים מהספה · תומר פרזן · מאמן כושר קרבי</footer>
 
 <script>
+// ===== הגדרות =====
+// תאריך תחילת התוכנית - זמני (placeholder), לעדכן כשייקבע:
+const START_DATE = '2026-11-01T18:00:00+02:00';
 // הדביקו כאן את כתובת ה-Web App של Google Apps Script:
 const SCRIPT_URL = "PASTE_SCRIPT_URL_HERE";
 const f=document.getElementById('f');
@@ -132,7 +147,7 @@ f.addEventListener('submit',async e=>{
     if(SCRIPT_URL.startsWith('http')){
       await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});
     }else console.warn('SCRIPT_URL not set - data not saved',data);
-    f.style.display='none';document.getElementById('thanks').style.display='block';
+    if(signupCount!=null){signupCount++;showCount()}f.style.display='none';document.getElementById('thanks').style.display='block';
     document.getElementById('signup').scrollIntoView({behavior:'smooth'});
   }catch(x){sb.disabled=false;sb.textContent='שלח והירשם 🚀';alert('משהו השתבש, נסו שוב')}
 });
@@ -142,6 +157,19 @@ document.getElementById('cp').onclick=async()=>{
   try{await navigator.clipboard.writeText(n)}catch(e){const t=document.createElement('textarea');t.value=n;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}
   document.getElementById('cp').textContent='✔ הועתק!';
 };
+
+// ===== countdown =====
+(function(){const t=new Date(START_DATE).getTime();const cd=document.getElementById('cd');
+const p=n=>String(n).padStart(2,'0');
+function tick(){let d=t-Date.now();if(d<=0){cd.outerHTML='<div class="started">התוכנית התחילה!</div>';document.querySelector('.cdt').remove();clearInterval(iv);return}
+const s=Math.floor(d/1000);document.getElementById('cd-d').textContent=Math.floor(s/86400);document.getElementById('cd-h').textContent=p(Math.floor(s%86400/3600));document.getElementById('cd-m').textContent=p(Math.floor(s%3600/60));document.getElementById('cd-s').textContent=p(s%60)}
+const iv=setInterval(tick,1000);tick()})();
+// ===== signup counter =====
+let signupCount=null;const cntEl=document.getElementById('cnt');
+function showCount(){if(signupCount==null){cntEl.style.display='none';return}cntEl.textContent='🔥 כבר '+signupCount+' נרשמו';cntEl.style.display='inline-block'}
+async function loadCount(){if(!SCRIPT_URL.startsWith('http')){signupCount=null;return showCount()}
+try{const r=await fetch(SCRIPT_URL+'?action=count',{cache:'no-store'});const j=await r.json();if(typeof j.count!=='number')throw 0;signupCount=Math.max(j.count,signupCount||0)}catch(e){signupCount=null}showCount()}
+loadCount();setInterval(loadCount,60000);
 </script>
 </body>
 </html>
