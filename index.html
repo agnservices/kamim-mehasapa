@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>קמים מהספה | תומר פרזן - כושר קרבי</title>
+<meta property="og:title" content="קמים מהספה - כושר קרבי עם תומר פרזן">
+<meta property="og:description" content="תוכנית כושר קרבי לחברים במושב. 500 ₪ לחודש. נרשמים עכשיו!">
+<meta property="og:image" content="assets/poster.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--acc:#ff5a1f;--acc2:#ffd60a;--bg:#0b0d0c;--card:#16191a}
+*{box-sizing:border-box}body{margin:0;font-family:Heebo,Arial,sans-serif;background:var(--bg);color:#fff;line-height:1.5}
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(135deg,#1a1d1b,#000)}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.8));z-index:1}
+.hc{position:relative;z-index:2;padding:32px 20px;max-width:640px;text-align:center}
+.tag{display:inline-block;background:var(--acc);padding:4px 14px;font-weight:700;letter-spacing:1px;transform:skew(-8deg);margin-bottom:12px}
+h1{font-size:clamp(3rem,14vw,6rem);font-weight:900;margin:0;line-height:1;text-transform:uppercase;text-shadow:0 4px 20px #000}
+h1 span{color:var(--acc2)}
+.sub{font-size:1.2rem;margin:16px 0 24px;opacity:.95}
+.btn{display:inline-block;background:var(--acc);color:#fff;border:0;font:900 1.25rem Heebo;padding:16px 34px;border-radius:6px;cursor:pointer;text-decoration:none;box-shadow:0 6px 24px rgba(255,90,31,.5)}
+.btn:active{transform:scale(.97)}
+section{padding:48px 20px;max-width:720px;margin:auto}
+h2{font-size:2rem;font-weight:900;margin:0 0 20px;border-right:6px solid var(--acc);padding-right:12px}
+.grid{display:grid;gap:12px}
+.item{background:var(--card);padding:16px;border-radius:8px;display:flex;gap:12px;align-items:center;font-size:1.05rem}
+.item b{font-size:1.6rem}
+.price{text-align:center;background:linear-gradient(135deg,var(--acc),#c2310a);border-radius:12px;padding:28px}
+.price .n{font-size:4rem;font-weight:900;line-height:1}
+form{display:grid;gap:14px;background:var(--card);padding:22px;border-radius:12px}
+label{font-weight:700;display:grid;gap:6px}
+input,select,textarea{font:1rem Heebo;padding:13px;border-radius:6px;border:1px solid #333;background:#0f1111;color:#fff;width:100%}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--acc)}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.opt{font-weight:400;opacity:.7}
+#thanks{display:none;text-align:center}
+.phone{font-size:2rem;font-weight:900;direction:ltr;background:#000;padding:14px;border-radius:8px;border:2px dashed var(--acc2);margin:14px 0}
+.err{color:#ff8080;display:none}
+footer{text-align:center;padding:30px;opacity:.6;font-size:.9rem}
+</style>
+</head>
+<body>
+<header class="hero">
+  <video autoplay muted loop playsinline preload="auto" poster="assets/poster.jpg">
+    <source src="assets/bg.mp4" type="video/mp4">
+  </video>
+  <div class="hc">
+    <div class="tag">כושר קרבי · במושב</div>
+    <h1>קמים<br><span>מהספה</span></h1>
+    <p class="sub">תוכנית כושר קרבי עם <b>תומר פרזן</b> - מאמן כושר קרבי.<br>אימונים קבוצתיים קשוחים, כיפיים ומותאמים לכל רמה. בלי תירוצים, ביחד עם החבר'ה מהמושב.</p>
+    <a class="btn" href="#signup">אני בפנים! 💪</a>
+  </div>
+</header>
+
+<section>
+  <h2>מה מקבלים?</h2>
+  <div class="grid">
+    <div class="item"><b>🔥</b>אימוני כושר קרבי קבוצתיים בשטח, כל שבוע</div>
+    <div class="item"><b>🎯</b>התאמה אישית לרמה ולמטרה שלך - גם אם לא התאמנת שנים</div>
+    <div class="item"><b>📈</b>מדידות ומעקב התקדמות</div>
+    <div class="item"><b>🥗</b>טיפים לתזונה והרגלים בריאים</div>
+    <div class="item"><b>🤝</b>קבוצה מגובשת שדוחפת אותך קדימה</div>
+  </div>
+</section>
+
+<section>
+  <div class="price">
+    <div>הכל כלול ב-</div>
+    <div class="n">500 ₪</div>
+    <div>לחודש</div>
+  </div>
+</section>
+
+<section id="signup">
+  <h2>נרשמים עכשיו</h2>
+  <form id="f" novalidate>
+    <label>שם מלא<input name="name" required autocomplete="name"></label>
+    <label>טלפון<input name="phone" type="tel" required inputmode="tel" pattern="[0-9+\-\s]{9,15}" autocomplete="tel"></label>
+    <label>אימייל<input name="email" type="email" required autocomplete="email"></label>
+    <div class="row">
+      <label>גיל<input name="age" type="number" min="12" max="99" required inputmode="numeric"></label>
+      <label>משקל (ק"ג)<input name="weight" type="number" min="30" max="250" required inputmode="decimal"></label>
+      <label>גובה (ס"מ)<input name="height" type="number" min="120" max="230" required inputmode="numeric"></label>
+    </div>
+    <label>כמה פעמים בשבוע אתה מתאמן היום?
+      <select name="freq" required><option value="">בחר/י</option><option>בכלל לא</option><option>1-2</option><option>3-4</option><option>5 ומעלה</option></select></label>
+    <label>מטרה עיקרית
+      <select name="goal" required><option value="">בחר/י</option><option>ירידה במשקל</option><option>חיטוב ובניית שריר</option><option>שיפור כושר וסיבולת</option><option>הכנה לצבא / מבדקים</option><option>בריאות והרגלים</option><option>אחר</option></select></label>
+    <label>הערה <span class="opt">(לא חובה)</span><textarea name="note" rows="3" placeholder="פציעות, שאלות, כל דבר..."></textarea></label>
+    <p class="err" id="err">נא למלא את כל שדות החובה בצורה תקינה</p>
+    <button class="btn" type="submit" id="sb">שלח והירשם 🚀</button>
+  </form>
+  <div id="thanks">
+    <h2 style="border:0;padding:0">איזה כיף, נרשמת! 🎉</h2>
+    <p>כדי לשריין את המקום שלך, שלם/י <b>500 ₪</b> בביט ל<b>תומר פרזן</b>:</p>
+    <div class="phone" id="ph">052-879-4457</div>
+    <button class="btn" id="cp" type="button">📋 העתק מספר</button>
+    <p style="margin-top:20px">אחרי התשלום, שלחו צילום מסך של האישור לתומר בוואטסאפ למספר הזה ✅</p>
+  </div>
+</section>
+<footer>קמים מהספה · תומר פרזן · מאמן כושר קרבי</footer>
+
+<script>
+// הדביקו כאן את כתובת ה-Web App של Google Apps Script:
+const SCRIPT_URL = "PASTE_SCRIPT_URL_HERE";
+const f=document.getElementById('f');
+f.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const err=document.getElementById('err');
+  if(!f.checkValidity()){err.style.display='block';f.reportValidity();return}
+  err.style.display='none';
+  const sb=document.getElementById('sb');sb.disabled=true;sb.textContent='שולח...';
+  const data=Object.fromEntries(new FormData(f));
+  try{
+    if(SCRIPT_URL.startsWith('http')){
+      await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});
+    }else console.warn('SCRIPT_URL not set - data not saved',data);
+    f.style.display='none';document.getElementById('thanks').style.display='block';
+    document.getElementById('signup').scrollIntoView({behavior:'smooth'});
+  }catch(x){sb.disabled=false;sb.textContent='שלח והירשם 🚀';alert('משהו השתבש, נסו שוב')}
+});
+document.getElementById('cp').onclick=async()=>{
+  const n='0528794457';
+  try{await navigator.clipboard.writeText(n)}catch(e){const t=document.createElement('textarea');t.value=n;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}
+  document.getElementById('cp').textContent='✔ הועתק!';
+};
+</script>
+</body>
+</html>
