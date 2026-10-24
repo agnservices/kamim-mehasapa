@@ -38,6 +38,14 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--acc)}
 .phone{font-size:2rem;font-weight:900;direction:ltr;background:#000;padding:14px;border-radius:8px;border:2px dashed var(--acc2);margin:14px 0}
 .err{color:#ff8080;display:none}
 footer{text-align:center;padding:30px;opacity:.6;font-size:.9rem}
+fieldset.health{border:2px solid var(--acc);border-radius:10px;padding:16px;display:grid;gap:12px;margin:0}
+legend{font-weight:900;font-size:1.3rem;padding:0 8px}
+.hq{display:grid;gap:8px;padding:10px 0;border-bottom:1px solid #2a2e2f}
+.yn{display:flex;gap:10px}.yn label{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;background:#0f1111;border:1px solid #333;border-radius:6px;padding:10px;font-weight:700;cursor:pointer}
+.yn label:has(input:checked){border-color:var(--acc);background:#2a1408}
+.yn input,.chk input{width:20px;height:20px;accent-color:var(--acc);margin:0}
+.chk{display:flex;gap:10px;align-items:flex-start;font-weight:700}.chk input{flex:none;margin-top:3px}
+.warn{display:none;background:#3a2a00;border:1px solid var(--acc2);color:var(--acc2);padding:12px;border-radius:6px;font-weight:700}
 </style>
 </head>
 <body>
@@ -88,6 +96,14 @@ footer{text-align:center;padding:30px;opacity:.6;font-size:.9rem}
     <label>מטרה עיקרית
       <select name="goal" required><option value="">בחר/י</option><option>ירידה במשקל</option><option>חיטוב ובניית שריר</option><option>שיפור כושר וסיבולת</option><option>הכנה לצבא / מבדקים</option><option>בריאות והרגלים</option><option>אחר</option></select></label>
     <label>הערה <span class="opt">(לא חובה)</span><textarea name="note" rows="3" placeholder="פציעות, שאלות, כל דבר..."></textarea></label>
+<fieldset class="health" id="health"><legend>🩺 הצהרת בריאות</legend>
+<p class="opt" style="margin:0">ענו בכנות על כל השאלות. זה חשוב לבטיחות שלכם.</p>
+<div class="hq"><span>1. האם אובחנת במחלת לב, או שאת/ה חש/ה כאבים בחזה בזמן מאמץ?</span><div class="yn"><label><input type="radio" name="h1" value="כן" required>כן</label><label><input type="radio" name="h1" value="לא">לא</label></div></div><div class="hq"><span>2. האם את/ה סובל/ת מסחרחורות או התעלפויות?</span><div class="yn"><label><input type="radio" name="h2" value="כן" required>כן</label><label><input type="radio" name="h2" value="לא">לא</label></div></div><div class="hq"><span>3. האם יש לך לחץ דם גבוה?</span><div class="yn"><label><input type="radio" name="h3" value="כן" required>כן</label><label><input type="radio" name="h3" value="לא">לא</label></div></div><div class="hq"><span>4. האם יש לך מחלה כרונית (כגון סוכרת או אסתמה)?</span><div class="yn"><label><input type="radio" name="h4" value="כן" required>כן</label><label><input type="radio" name="h4" value="לא">לא</label></div></div><div class="hq"><span>5. האם יש לך בעיה במפרקים, בעצמות או בגב שמחמירה בפעילות גופנית?</span><div class="yn"><label><input type="radio" name="h5" value="כן" required>כן</label><label><input type="radio" name="h5" value="לא">לא</label></div></div><div class="hq"><span>6. האם את/ה נוטל/ת תרופות באופן קבוע?</span><div class="yn"><label><input type="radio" name="h6" value="כן" required>כן</label><label><input type="radio" name="h6" value="לא">לא</label></div></div><div class="hq"><span>7. האם את בהריון, או שעברת ניתוח לאחרונה?</span><div class="yn"><label><input type="radio" name="h7" value="כן" required>כן</label><label><input type="radio" name="h7" value="לא">לא</label></div></div><div class="hq"><span>8. האם רופא אמר לך להגביל פעילות גופנית?</span><div class="yn"><label><input type="radio" name="h8" value="כן" required>כן</label><label><input type="radio" name="h8" value="לא">לא</label></div></div>
+<div class="warn" id="warn">⚠️ סימנת "כן" לפחות בשאלה אחת. לפני תחילת האימונים יש להציג אישור רפואי מרופא.</div>
+<label>פרטים נוספים על מצבך הרפואי <span class="opt">(לא חובה)</span><textarea name="hdetails" rows="2" placeholder="אם ענית כן, פרט/י כאן"></textarea></label>
+<label class="chk"><input type="checkbox" name="declare" value="כן" required><span>אני מצהיר/ה שכל הפרטים נכונים ואין לי מגבלה רפואית לעסוק בפעילות גופנית, ואעדכן את המאמן על כל שינוי</span></label>
+<label>חתימה: הקלד/י שם מלא<input name="signature" required autocomplete="name" placeholder="שם מלא כחתימה"></label>
+</fieldset>
     <p class="err" id="err">נא למלא את כל שדות החובה בצורה תקינה</p>
     <button class="btn" type="submit" id="sb">שלח והירשם 🚀</button>
   </form>
@@ -120,6 +136,7 @@ f.addEventListener('submit',async e=>{
     document.getElementById('signup').scrollIntoView({behavior:'smooth'});
   }catch(x){sb.disabled=false;sb.textContent='שלח והירשם 🚀';alert('משהו השתבש, נסו שוב')}
 });
+f.addEventListener('change',()=>{document.getElementById('warn').style.display=f.querySelector('#health input[type=radio][value="כן"]:checked')?'block':'none'});
 document.getElementById('cp').onclick=async()=>{
   const n='0528794457';
   try{await navigator.clipboard.writeText(n)}catch(e){const t=document.createElement('textarea');t.value=n;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}
